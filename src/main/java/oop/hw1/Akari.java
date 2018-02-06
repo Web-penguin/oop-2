@@ -1,4 +1,4 @@
-package oop;
+package oop.hw1;
 
 
 import java.io.*;
@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class akari {
+public class Akari {
     public static void main(String[] args) throws IOException {
 //        /home/albert/HSE/oop/1/example.ppm /home/albert/HSE/oop/out.ppm
         int n = args.length;
@@ -83,4 +83,3 @@ public class akari {
         }
     }
 }
-
