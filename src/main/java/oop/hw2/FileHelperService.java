@@ -27,7 +27,7 @@ public class FileHelperService {
         }
     }
 
-    public void writeToFile(PrintWriter prntWrtr ,String stringToWrite) {
+    public void writeString(PrintWriter prntWrtr , String stringToWrite) {
         try {
             prntWrtr.print(stringToWrite);
             prntWrtr.flush();
@@ -35,6 +35,12 @@ public class FileHelperService {
             System.out.println(Constants.FILE_WRITE_ERROR);
             e.printStackTrace();
         }
+    }
+
+    public void writeToFile(String outputDir, String fileName, String stringToWrite) {
+        PrintWriter prntWrtr = createPW(outputDir + fileName + ".txt");
+        writeString(prntWrtr, stringToWrite);
+        closePW(prntWrtr);
     }
 
     public BufferedImage readImg(String imgName) {

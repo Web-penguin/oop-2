@@ -10,7 +10,7 @@ public class Converter {
     private FileHelperService fhs;
     private String inputPath;
     private String outputPath;
-    private int blockSize = 1;
+    private int blockSize;
     private boolean horizontalMirror;
     private int degree;
     private boolean verticalMirror;
@@ -49,41 +49,34 @@ public class Converter {
 
     public void transform(StringBuilder sb) throws Exception {
         fhs = new FileHelperService();
-        StringBuilder stringBuilder = new StringBuilder();
 
         if (degree == 90) {
-            PrintWriter prntWrtr = fhs.createPW(outputPath + Constants.FILE_OUTPUT_ROTATE + ".txt");
-            stringBuilder = transformer.rotate(sb, 90);
-            fhs.writeToFile(prntWrtr, stringBuilder.toString());
-            fhs.closePW(prntWrtr);
+            StringBuilder stringBuilder = transformer.rotate(sb, 90);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_ROTATE, stringBuilder.toString());
         } else if (degree == 180) {
-            PrintWriter prntWrtr = fhs.createPW(outputPath + Constants.FILE_OUTPUT_ROTATE + ".txt");
-            stringBuilder = transformer.rotate180Transform(sb);
-            fhs.writeToFile(prntWrtr, stringBuilder.toString());
-            fhs.closePW(prntWrtr);
+            StringBuilder stringBuilder = transformer.rotate180Transform(sb);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_ROTATE, stringBuilder.toString());
         } else if (degree == 270) {
-            PrintWriter prntWrtr = fhs.createPW(outputPath + Constants.FILE_OUTPUT_ROTATE + ".txt");
-            stringBuilder = transformer.rotate(sb, 270);
-            fhs.writeToFile(prntWrtr, stringBuilder.toString());
-            fhs.closePW(prntWrtr);
+            StringBuilder stringBuilder = transformer.rotate(sb, 270);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_ROTATE, stringBuilder.toString());
         }
 
         if (horizontalMirror) {
-            PrintWriter prntWrtr = fhs.createPW(outputPath + Constants.FILE_OUTPUT_HORIZONTAL_MIRROR + ".txt");
+            StringBuilder stringBuilder = new StringBuilder();
             String[] strings = transformer.horizontalMirrorTransform(sb);
             for (String t : strings) {
-                fhs.writeToFile(prntWrtr, new StringBuilder(t).reverse().toString() + "\n");
+                stringBuilder.append(new StringBuilder(t).reverse().toString() + "\n");
             }
-            fhs.closePW(prntWrtr);
+                fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_HORIZONTAL_MIRROR, stringBuilder.toString());
         }
 
         if (verticalMirror) {
-            PrintWriter prntWrt = fhs.createPW(outputPath + Constants.FILE_OUTPUT_VERTICAL_MIRROR + ".txt");
+            StringBuilder stringBuilder = new StringBuilder();
             String[] strings = transformer.verticalMirrorTransform(sb);
             for(int i = strings.length - 1; i > 0; i--) {
-                fhs.writeToFile(prntWrt, strings[i] + "\n");
+                stringBuilder.append(strings[i] + "\n");
             }
-            fhs.closePW(prntWrt);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_VERTICAL_MIRROR, stringBuilder.toString());
         }
     }
 
@@ -93,10 +86,7 @@ public class Converter {
 
         BufferedImage img = fhs.readImg(inputPath);
         StringBuilder sb = convertToASCII(img);
-
-        PrintWriter printWriter = fhs.createPW(outputPath + Constants.FILE_OUTPUT_MAIN + ".txt");
-        fhs.writeToFile(printWriter, sb.toString());
-        fhs.closePW(printWriter);
+        fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_MAIN, sb.toString());
 
         transform(sb);
     }

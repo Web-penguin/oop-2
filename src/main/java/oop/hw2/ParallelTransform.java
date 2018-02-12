@@ -28,41 +28,36 @@ public class ParallelTransform {
     private void transform(StringBuilder sb, int part) {
         fhs = new FileHelperService();
         Transformer transformer = new Transformer();
-        StringBuilder stringBuilder = new StringBuilder();
 
         if (degree == 90) {
-            PrintWriter prntWrtr = fhs.createPW(outputPath + Constants.FILE_OUTPUT_ROTATE + "_" + part + ".txt");
-            stringBuilder = transformer.rotate(sb, 90);
-            fhs.writeToFile(prntWrtr, stringBuilder.toString());
-            fhs.closePW(prntWrtr);
+            StringBuilder stringBuilder = transformer.rotate(sb, 90);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_ROTATE + "_" + part, stringBuilder.toString());
         } else if (degree == 180) {
-            PrintWriter prntWrtr = fhs.createPW(outputPath + Constants.FILE_OUTPUT_ROTATE + "_" + part + ".txt");
-            stringBuilder = transformer.rotate180Transform(sb);
-            fhs.writeToFile(prntWrtr, stringBuilder.toString());
-            fhs.closePW(prntWrtr);
+            StringBuilder stringBuilder = transformer.rotate180Transform(sb);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_ROTATE + "_" + part, stringBuilder.toString());
         } else if (degree == 270) {
-            PrintWriter prntWrtr = fhs.createPW(outputPath + Constants.FILE_OUTPUT_ROTATE + "_" + part + ".txt");
-            stringBuilder = transformer.rotate(sb, 270);
-            fhs.writeToFile(prntWrtr, stringBuilder.toString());
-            fhs.closePW(prntWrtr);
+            StringBuilder stringBuilder = transformer.rotate(sb, 270);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_ROTATE + "_" + part, stringBuilder.toString());
         }
 
         if (horizontalMirror) {
+            StringBuilder stringBuilder = new StringBuilder();
             String[] str = transformer.horizontalMirrorTransform(sb);
-            PrintWriter printWriterHM = fhs.createPW(outputPath + Constants.FILE_OUTPUT_HORIZONTAL_MIRROR + "_" + part + ".txt");
+
             for (String t : str) {
-                fhs.writeToFile(printWriterHM, new StringBuilder(t).reverse().toString()+"\n");
+                stringBuilder.append(new StringBuilder(t).reverse().toString()+"\n");
             }
-            fhs.closePW(printWriterHM);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_HORIZONTAL_MIRROR + "_" + part, stringBuilder.toString());
         }
 
         if (verticalMirror) {
+            StringBuilder stringBuilder = new StringBuilder();
             String[] str = transformer.verticalMirrorTransform(sb);
-            PrintWriter printWriterVM = fhs.createPW(outputPath + Constants.FILE_OUTPUT_VERTICAL_MIRROR + "_" + part + ".txt");
+
             for(int i = str.length - 1; i > 0; i--) {
-                fhs.writeToFile(printWriterVM, str[i]+"\n");
+                stringBuilder.append(str[i]+"\n");
             }
-            fhs.closePW(printWriterVM);
+            fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_VERTICAL_MIRROR + "_" + part, stringBuilder.toString());
         }
     }
 
@@ -94,7 +89,7 @@ public class ParallelTransform {
                         }
                         result += "\n";
                     }
-                    fhs.writeToFile(printWriter, result);
+                    fhs.writeString(printWriter, result);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -129,14 +124,10 @@ public class ParallelTransform {
             final int tmp = i;
             new Thread("part_" + i) {
                 public void run() {
-                    StringBuilder sb = null;
-                    sb = converter.convertToASCII(parts.getFirst().get(tmp));
-                    PrintWriter printWriter = fhs.createPW(outputPath + Constants.FILE_OUTPUT_MAIN + "_" + tmp + ".txt");
-                    fhs.writeToFile(printWriter, sb.toString());
-                    fhs.closePW(printWriter);
+                    StringBuilder sb = converter.convertToASCII(parts.getFirst().get(tmp));
+                    fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_MAIN + "_" + tmp, sb.toString());
                     transform(sb, tmp);
                 }
-
             }.run();
         }
 
