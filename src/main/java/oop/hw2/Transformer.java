@@ -1,51 +1,20 @@
 package oop.hw2;
 
-
-import java.io.PrintWriter;
-
 public class Transformer {
 
-    private FileHelperService fhs;
-
-    private String outputPath;
-    private static final String FILE_OUTPUT_ROTATE_180 = "out180.txt";
-    private static final String FILE_OUTPUT_HORIZONTAL_MIRROR = "outHM.txt";
-    private static final String FILE_OUTPUT_VERTICAL_MIRROR = "outVM.txt";
-    private static final String FILE_OUTPUT_ROTATE = "outRot.txt";
-
-    public Transformer(String outputPath) {
-        this.outputPath = outputPath;
+    public StringBuilder rotate180Transform(StringBuilder sb) {
+        return new StringBuilder(sb).reverse();
     }
 
-    public void rotate180Transform(StringBuilder sb) {
-        fhs = new FileHelperService();
-        PrintWriter prntWrtr = fhs.createPW(outputPath + FILE_OUTPUT_ROTATE_180);
-        fhs.writeToFile(prntWrtr, new StringBuilder(sb).reverse().toString());
-        fhs.closePW(prntWrtr);
+    public String[] horizontalMirrorTransform(StringBuilder sb) {
+        return new StringBuilder(sb).toString().split("\n");
     }
 
-    public void horizontalMirrorTransform(StringBuilder sb) {
-        fhs = new FileHelperService();
-        PrintWriter prntWrtr = fhs.createPW(outputPath + FILE_OUTPUT_HORIZONTAL_MIRROR);
-        String[] temp = new StringBuilder(sb).toString().split("\n");
-        for (String t : temp) {
-            fhs.writeToFile(prntWrtr, new StringBuilder(t).reverse().toString());
-        }
-        fhs.closePW(prntWrtr);
+    public String[] verticalMirrorTransform(StringBuilder sb) {
+        return new StringBuilder(sb).toString().split("\n");
     }
 
-    public void verticalMirrorTransform(StringBuilder sb) {
-        fhs = new FileHelperService();
-        PrintWriter prntWrtrr = fhs.createPW(outputPath + FILE_OUTPUT_VERTICAL_MIRROR);
-        String[] temp = new StringBuilder(sb).toString().split("\n");
-        for(int i = temp.length - 1; i > 0; i--) {
-            fhs.writeToFile(prntWrtrr, temp[i]);
-        }
-        fhs.closePW(prntWrtrr);
-    }
-
-    public void rotate(StringBuilder sb, int degree) {
-        fhs = new FileHelperService();
+    public StringBuilder rotate(StringBuilder sb, int degree) {
         String[] temp = new StringBuilder(sb).toString().split("\n");
         String[][] matrix = new String[temp.length][temp[0].length()];
         for (int i = 0; i < temp.length; i++) {
@@ -76,10 +45,7 @@ public class Transformer {
                 stringBuilder.append(r[j]);
             stringBuilder.append("\n");
         }
-
-        PrintWriter printWriter = fhs.createPW(outputPath + FILE_OUTPUT_ROTATE);
-        fhs.writeToFile(printWriter, stringBuilder.toString());
-        fhs.closePW(printWriter);
+        return stringBuilder;
     }
 
 }

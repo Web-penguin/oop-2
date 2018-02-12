@@ -1,19 +1,18 @@
 package oop.hw2;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.PrintWriter;
 
 public class FileHelperService {
-
-    private static final String FILE_OPEN_ERROR = "An error occurred while opening an output file";
-    private static final String FILE_CLOSE_ERROR = "An error occurred while closing an output file";
-    private static final String FILE_WRITE_ERROR = "An error occurred while writing an output file";
 
     public PrintWriter createPW(String outputPath) {
         PrintWriter prntWrtr = null;
         try {
             prntWrtr = new PrintWriter(outputPath);
         } catch (Exception e) {
-            System.out.println(FILE_OPEN_ERROR);
+            System.out.println(Constants.FILE_OPEN_ERROR);
             e.printStackTrace();
         }
         return prntWrtr;
@@ -23,18 +22,29 @@ public class FileHelperService {
         try {
             prntWrtr.close();
         } catch (Exception e) {
-            System.out.println(FILE_CLOSE_ERROR);
+            System.out.println(Constants.FILE_CLOSE_ERROR);
             e.printStackTrace();
         }
     }
 
     public void writeToFile(PrintWriter prntWrtr ,String stringToWrite) {
         try {
-            prntWrtr.println(stringToWrite);
+            prntWrtr.print(stringToWrite);
             prntWrtr.flush();
         } catch (Exception e) {
-            System.out.println(FILE_WRITE_ERROR);
+            System.out.println(Constants.FILE_WRITE_ERROR);
             e.printStackTrace();
         }
+    }
+
+    public BufferedImage readImg(String imgName) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(imgName));
+        } catch (Exception e) {
+            System.out.println(Constants.READ_IMG_ERROR);
+            e.printStackTrace();
+        }
+        return img;
     }
 }

@@ -1,13 +1,9 @@
 package oop.hw2;
 
-import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.JCommander;
 
 public class Main {
-
-    // Argumants usage:
-    // -i <path to image> -o <path to output folder> -b <block size (decrease size)>
-    // -h (horizontal flip) -v (vertical flip) -r <90|180|270>
 
     @Parameter(names={"--unput", "-i"}, required = true)
     private String inputPath = null;
@@ -30,9 +26,13 @@ public class Main {
                 .build()
                 .parse(args);
 
-        Converter converter = new Converter(
-                main.inputPath, main.outputPath, main.blockSize,
+//        Converter converter = new Converter(
+//                main.inputPath, main.outputPath, main.blockSize,
+//                main.horizontalMirror, main.verticalMirror, main.degree);
+//        converter.run();
+        ParallelTransform th = new ParallelTransform(main.inputPath, main.outputPath, main.blockSize,
                 main.horizontalMirror, main.verticalMirror, main.degree);
-        converter.run();
+        th.run();
+
     }
 }
