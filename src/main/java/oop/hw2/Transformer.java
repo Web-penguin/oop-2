@@ -2,19 +2,19 @@ package oop.hw2;
 
 public class Transformer {
 
-    public StringBuilder rotate180Transform(StringBuilder sb) {
+    public static StringBuilder rotate180Transform(StringBuilder sb) {
         return new StringBuilder(sb).reverse();
     }
 
-    public String[] horizontalMirrorTransform(StringBuilder sb) {
+    public static String[] horizontalMirrorTransform(StringBuilder sb) {
         return new StringBuilder(sb).toString().split("\n");
     }
 
-    public String[] verticalMirrorTransform(StringBuilder sb) {
+    public static String[] verticalMirrorTransform(StringBuilder sb) {
         return new StringBuilder(sb).toString().split("\n");
     }
 
-    public StringBuilder rotate(StringBuilder sb, int degree) {
+    public static StringBuilder rotate(StringBuilder sb, int degree) {
         String[] temp = new StringBuilder(sb).toString().split("\n");
         String[][] matrix = new String[temp.length][temp[0].length()];
         for (int i = 0; i < temp.length; i++) {

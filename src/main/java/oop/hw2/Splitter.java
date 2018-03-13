@@ -10,13 +10,13 @@ public class Splitter {
 
     private Color lineColor = new Color(30, 30, 30);
 
-    private boolean checkColor(Color first, Color second) {
+    public boolean checkColor(Color first, Color second) {
         return first.getRed() <= second.getRed() &&
                 first.getBlue() <= second.getBlue() &&
                 first.getGreen() <= second.getGreen();
     }
 
-    private List<Integer> horizontalLines(BufferedImage img, int height, int width) {
+    public List<Integer> horizontalLines(BufferedImage img, int height, int width) {
 
         List<Integer> horizontal = new ArrayList<Integer>();
 
@@ -37,7 +37,7 @@ public class Splitter {
         return horizontal;
     }
 
-    private List<Integer> verticalLines(BufferedImage img, int height, int width) {
+    public List<Integer> verticalLines(BufferedImage img, int height, int width) {
 
         Color lineColor = new Color(30, 30, 30);
         List<Integer> vertical = new ArrayList<Integer>();
@@ -56,7 +56,7 @@ public class Splitter {
         return vertical;
     }
 
-    private List<Pair<Integer, Integer>> horizontalImageParts(BufferedImage img, List<Integer> vertical) {
+    public List<Pair<Integer, Integer>> horizontalImageParts(BufferedImage img, List<Integer> vertical) {
         Integer startXPart = 0;
         Integer endXPart = 0;
 
@@ -79,7 +79,7 @@ public class Splitter {
         return horParts;
     }
 
-    private List<Pair<Integer, Integer>> verticalImageParts(BufferedImage img, List<Integer> horizontal) {
+    public List<Pair<Integer, Integer>> verticalImageParts(BufferedImage img, List<Integer> horizontal) {
         Integer startYPart = 0;
         Integer endYPart = 0;
         List<Pair<Integer, Integer>> vertParts = new ArrayList<Pair<Integer, Integer>>();

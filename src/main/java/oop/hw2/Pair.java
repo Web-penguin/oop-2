@@ -17,4 +17,17 @@ public class Pair<T1, T2> {
     public T2 getSecond() {
         return this.end;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Pair)) {
+            return false;
+        }
+        return start.equals(((Pair) obj).getFirst()) && end.equals(((Pair) obj).getSecond());
+    }
+
+    @Override
+    public String toString() {
+        return start.toString() + " " + end.toString();
+    }
 }
