@@ -15,7 +15,11 @@ public class Splitter {
                 first.getBlue() <= second.getBlue() &&
                 first.getGreen() <= second.getGreen();
     }
-
+	
+	/*
+	Эту и следующую функции можно объединить в одну с параметров option
+	для того, чтобы убрать дубликацию
+	*/
     private List<Integer> horizontalLines(BufferedImage img, int height, int width) {
 
         List<Integer> horizontal = new ArrayList<Integer>();
@@ -55,7 +59,11 @@ public class Splitter {
         }
         return vertical;
     }
-
+	
+	/*
+	Аналогично, эту и следующую функции можно объединить в одну с параметров option
+	для того, чтобы убрать дубликацию
+	*/
     private List<Pair<Integer, Integer>> horizontalImageParts(BufferedImage img, List<Integer> vertical) {
         Integer startXPart = 0;
         Integer endXPart = 0;

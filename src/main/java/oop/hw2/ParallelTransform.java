@@ -28,9 +28,11 @@ public class ParallelTransform {
     private void transform(StringBuilder sb, int part) {
         fhs = new FileHelperService();
         Transformer transformer = new Transformer();
-
+		
+		// Как минимум от if degree == 270 можно избавиться
         if (degree == 90) {
             StringBuilder stringBuilder = transformer.rotate(sb, 90);
+			// Конкатенацию строк лучше проводить через StringBuilder в Java. 
             fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_ROTATE + "_" + part, stringBuilder.toString());
         } else if (degree == 180) {
             StringBuilder stringBuilder = transformer.rotate180Transform(sb);
@@ -60,7 +62,8 @@ public class ParallelTransform {
             fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_VERTICAL_MIRROR + "_" + part, stringBuilder.toString());
         }
     }
-
+	
+	// Может быть стоит перенести функцию в отдельный класс.
     private void concatOutput(String outputPath, String outputFileName, int verticalCount, int horizontalCount) {
         fhs = new FileHelperService();
         PrintWriter printWriter = fhs.createPW(outputPath + outputFileName + ".txt");
@@ -70,6 +73,7 @@ public class ParallelTransform {
 
             List<BufferedReader> subImgReaders = new ArrayList<BufferedReader>();
             for (int j = 0; j < horizontalCount; j++) {
+				// Конкатенацию строк в цикле нужно проводить через StringBuilder. 
                 String path = outputPath + outputFileName + "_" + (verticalCount * i + j) + ".txt";
                 try {
                     BufferedReader brCurrent = new BufferedReader(new FileReader(path));
@@ -129,6 +133,7 @@ public class ParallelTransform {
                     transform(sb, tmp);
                 }
             }.run();
+			// Нужен join, чтобы дождаться всех тредов, прежде чем идти дальше.
         }
 
         int horizontalCount = parts.getSecond().getFirst();

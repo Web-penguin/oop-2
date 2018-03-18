@@ -6,11 +6,19 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/*
+В целом понятна идея переписать обфусцированный С код путем использования функционала Java.
+Результат достигнут, программа делает то же самое, что и аналог программы на C.
+Однобуквенные переменные, магические константы, все это приводит к плохой читаемости кода.
+Так же проблематично модифицировать код, ибо непонятно, что вообще происходит.
+*/
+
 public class Akari {
     public static void main(String[] args) throws IOException {
 //        /home/albert/HSE/oop/1/example.ppm /home/albert/HSE/oop/out.ppm
         int n = args.length;
-
+		
+		// Нет закрытия файловых дескрипторов p и q.
         InputStream p;
         OutputStream q;
         int A = 0, k, a, r = 0, i = 0;

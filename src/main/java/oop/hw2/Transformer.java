@@ -5,7 +5,9 @@ public class Transformer {
     public StringBuilder rotate180Transform(StringBuilder sb) {
         return new StringBuilder(sb).reverse();
     }
-
+	
+	
+	// Не вижу различий в этой и следующей функциях.
     public String[] horizontalMirrorTransform(StringBuilder sb) {
         return new StringBuilder(sb).toString().split("\n");
     }

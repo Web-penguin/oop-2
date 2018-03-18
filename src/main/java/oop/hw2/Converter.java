@@ -35,6 +35,7 @@ public class Converter {
             for (int j = 0; j < columns; j++) {
                 ConvertHelper hlpr = new ConvertHelper(img.getSubimage(j * blockSize, i * blockSize, blockSize, blockSize));
                 char selection;
+				// Странная константа, занести в переменную с осмысленным названием.
                 if (hlpr.getColor().getAlpha() < 150) {
                     selection = ' ';
                 } else {
@@ -50,6 +51,7 @@ public class Converter {
     public void transform(StringBuilder sb) throws Exception {
         fhs = new FileHelperService();
 
+		// Как минимум от if degree == 270 можно избавиться
         if (degree == 90) {
             StringBuilder stringBuilder = transformer.rotate(sb, 90);
             fhs.writeToFile(outputPath, Constants.FILE_OUTPUT_ROTATE, stringBuilder.toString());

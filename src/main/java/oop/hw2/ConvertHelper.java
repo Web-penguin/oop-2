@@ -13,7 +13,8 @@ public class ConvertHelper {
         this.img = img;
         init();
     }
-
+	
+	// Почему бы просто не написать это в конструкторе?
     private void init() {
 
         int height = img.getHeight();
@@ -27,6 +28,7 @@ public class ConvertHelper {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Color clr = new Color(img.getRGB(i, j));
+				// Можно не выделять в отдельные переменные, а сразу добавлять в сумму.
                 int red = clr.getRed();
                 int green = clr.getGreen();
                 int blue = clr.getBlue();

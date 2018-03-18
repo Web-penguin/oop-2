@@ -12,6 +12,7 @@ public class FileHelperService {
         try {
             prntWrtr = new PrintWriter(outputPath);
         } catch (Exception e) {
+			// Возможно, стоит кидать кастомные исключения во всех функциях?
             System.out.println(Constants.FILE_OPEN_ERROR);
             e.printStackTrace();
         }

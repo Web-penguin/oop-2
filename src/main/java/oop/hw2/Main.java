@@ -10,6 +10,7 @@ public class Main {
     @Parameter(names={"--output", "-o"}, required = true)
     private String outputPath = null;
     @Parameter(names={"--block", "-b"}, required = true)
+	// Неинформативное название переменной, лучше заменить на что - то вроде decreasingSize
     private Integer blockSize = 1;
     @Parameter(names={"--horizontal", "-h"})
     private boolean horizontalMirror = false;

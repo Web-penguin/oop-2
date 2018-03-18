@@ -1,7 +1,11 @@
 package oop.hw2;
 
 public class PixelToASCIIChar {
-
+	/*
+	Возможно стоит избавиться от класса и перенести функцию в немного измененный ConvertHelper?
+	Чтобы вся функция конвертации лежала на нем
+	Непонятно, что за значение переводится в char
+	*/
     public static char toChar(int index) {
         char selection;
 
